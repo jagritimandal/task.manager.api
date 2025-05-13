@@ -1,0 +1,20 @@
+task-manager-api/
+├── src/
+│   ├── models/
+│   │   ├── task.js
+│   │   └── user.js
+│   ├── services/
+│   │   ├── taskService.js
+│   │   └── userService.js
+│   ├── controllers/
+│   │   ├── taskController.js
+│   │   └── userController.js
+│   ├── routes/
+│   │   ├── taskRoutes.js
+│   │   └── userRoutes.js
+│   └── server.js
+├── test/
+│   └── tests.js
+├── public/
+│   └── ...
+└── package.json
