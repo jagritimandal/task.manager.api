@@ -49,50 +49,50 @@
  });
 
  userSchema.methods.toJSON = function () {
-   const user = this.toObject();
+   const users = this.toObject();
 
-   delete user.password;
-   delete user.tokens;
+   delete users.password;
+   delete users.tokens;
 
-   return user;
+   return users;
  };
 
  userSchema.methods.generateAuthToken = async function () {
-   const user = this;
-   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
+   const users = this;
+   const token = jwt.sign({ _id: users._id.toString() }, process.env.JWT_SECRET);
 
-   user.tokens = user.tokens.concat({ token });
-   await user.save();
+   users.tokens = users.tokens.concat({ token });
+   await users.save();
 
    return token;
  };
 
  userSchema.statics.findByCredentials = async (email, password) => {
-   const user = await User.findOne({ email });
+   const users = await Users.findOne({ email });
 
-   if (!user) {
+   if (!users) {
      throw new Error('Invalid email or password');
    }
 
-   const isMatch = await bcrypt.compare(password, user.password);
+   const isMatch = await bcrypt.compare(password, users.password);
 
    if (!isMatch) {
      throw new Error('Invalid email or password');
    }
 
-   return user;
+   return users;
  };
 
  userSchema.pre('save', async function (next) {
-   const user = this;
+   const users = this;
 
-   if (user.isModified('password')) {
-     user.password = await bcrypt.hash(user.password, 8);
+   if (users.isModified('password')) {
+     users.password = await bcrypt.hash(users.password, 8);
    }
 
    next();
  });
 
- const User = mongoose.model('User', userSchema);
+ const Users = mongoose.model('Users', userSchema);
 
- module.exports = User;
+ module.exports = Users;

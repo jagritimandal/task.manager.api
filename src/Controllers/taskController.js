@@ -1,5 +1,4 @@
 const TaskService = require('../services/taskService');
-
 const allowedUpdates = ['description', 'completed'];
 
 const createTask = async (req, res) => {

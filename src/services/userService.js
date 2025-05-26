@@ -1,22 +1,23 @@
-const User = require('../models/user');
+const Users = require('../models/user');
 
 const UserService = {
+  
   createUser: async (userData) => {
-    const user = new User(userData);
-    await user.save();
-    const token = await user.generateAuthToken();
-    return { user, token };
+    const users = new Users(userData);
+    await users.save();
+    const token = await users.generateAuthToken();
+    return { users, token };
   },
 
   loginUser: async (email, password) => {
-    const user = await User.findByCredentials(email, password);
-    const token = await user.generateAuthToken();
-    return { user, token };
+    const users = await Users.findByCredentials(email, password);
+    const token = await users.generateAuthToken();
+    return { users, token };
   },
 
-  logoutUser: async (user, token) => {
-    user.tokens = user.tokens.filter((tok) => tok.token !== token);
-    await user.save();
+  logoutUser: async (users, token) => {
+    users.tokens = users.tokens.filter((tok) => tok.token !== token);
+    await users.save();
   }
 };
 
