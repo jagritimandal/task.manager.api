@@ -10,9 +10,9 @@ task-manager-api/
 │   │   ├── taskController.js
 │   │   └── userController.js
 │   ├── routes/
-│   │   ├── taskRoutes.js
-│   │   └── userRoutes.js
-│   └── server.js
+│       ├── taskRoutes.js
+│       └── userRoutes.js
+│   
 ├── test/
 │   └── tests.js
 ├── public/
