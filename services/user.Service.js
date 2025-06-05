@@ -1,7 +1,10 @@
-const Users = require('../models/user');
+const Users = require('../models/user.model');
 
 const UserService = {
-  
+  getAllUsers: async () => {
+    const users = await Users.find().select('-password'); // Exclude password
+    return users;
+  },
   createUser: async (userData) => {
     const users = new Users(userData);
     await users.save();

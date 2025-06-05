@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-
 const conncetDB =async () =>{
   try{
-    await mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api')
+    await mongoose.connect(process.env.MONGO_URI)
       .then(() => console.log('MongoDB connected'))
       .catch((err) => console.error('MongoDB connection error:', err));
 

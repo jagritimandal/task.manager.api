@@ -1,13 +1,18 @@
 const express = require('express');
-const userRoute = require('./src/routes/userRoute');
-const testRoute = require('./src/routes/testRoute');
-const taskRoute = require('./src/routes/taskRoute');
-const connectDB = require('./db/mongoose');
+const userRoute = require('./routes/user.Route');
+const testRoute = require('./routes/test.Route');
+const taskRoute = require('./routes/task.Route');
+const connectDB = require('./config/db');
 const app = express();
+
+require('dotenv').config();// Load .env at the top
+
 
 // Body parser middlewares (express built-in)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Connect to MongoDB and start server
 connectDB();
 
 // app.use('/task', authCheck, taskRoute);
