@@ -37,14 +37,14 @@ npm install
     node index.js
 The server should now be running at http://localhost:3000.
 5. Project Structure
-    ├── controllers/
-    ├── middleware/
-    ├── models/
-    ├── routes/
-    ├── utils/
-    ├── .env
-    ├── server.js
-    ├── index.js
-   
+       ├── controllers/
+       ├── middleware/
+       ├── models/
+       ├── routes/
+       ├── utils/
+       ├── .env
+       ├── server.js
+       ├── index.js
+      
 
    
