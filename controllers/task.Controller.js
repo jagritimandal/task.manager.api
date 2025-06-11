@@ -1,4 +1,4 @@
-const taskService = require('../services/task.Service');
+const taskService = require('../services/task.service');
 
 const taskController = {
   // Create a task
