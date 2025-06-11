@@ -1,27 +1,39 @@
-const Users = require('../models/user.model');
+const User = require('../models/user.model');
+const bcrypt =require('bcrypt');
 
 const UserService = {
-  getAllUsers: async () => {
-    const users = await Users.find().select('-password'); // Exclude password
-    return users;
-  },
-  createUser: async (userData) => {
-    const users = new Users(userData);
-    await users.save();
-    const token = await users.generateAuthToken();
-    return { users, token };
-  },
+  createUser: async (payload) => {
+    try{
+      // Check if email already exists
+      const existingUser = await User.findOne({ email: payload.email });
+      if (existingUser) {
+        throw new Error('Email already registered');
+      }
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(payload.password, 6);
+      //create user
+      var user =new User({
+        name:payload.name,
+        email:payload.email,
+        password:hashedPassword,
+        mobileNumber:payload.mobileNumber,
+        role:payload.role
+      });
+      const data =await user.save();
+      if (data) {
+        return data;
+      }
 
-  loginUser: async (email, password) => {
-    const users = await Users.findByCredentials(email, password);
-    const token = await users.generateAuthToken();
-    return { users, token };
+    }catch(err){
+      throw new Error(err.message);
+    }
   },
-
-  logoutUser: async (users, token) => {
-    users.tokens = users.tokens.filter((tok) => tok.token !== token);
-    await users.save();
-  }
+getUserByEmail : async (email) => {
+  return User.findOne({ email });
+},
+getAllUsers : async () => {
+  return User.find();
+},
 };
 
 module.exports = UserService;

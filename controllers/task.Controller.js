@@ -1,63 +1,70 @@
-const TaskService = require('../services/task.Service');
-const allowedUpdates = ['description', 'completed'];
+const taskService = require('../services/task.Service');
 
-const taskController ={
+const taskController = {
+  // Create a task
   createTask : async (req, res) => {
     try {
-      const task = await TaskService.createTask({
+      const task = await taskService.createTask({
         ...req.body,
-        owner: req.user._id
+        createdBy: req.user._id,
       });
-      res.status(201).send(task);
-    } catch (e) {
-      res.status(400).send(e);
+      res.status(201).json(task);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
   },
 
-  getAllTasks : async (req, res) => {
+  // Get all tasks (admin) or only user’s tasks
+  getTasks : async (req, res) => {
     try {
-      const tasks = await TaskService.getTasksByOwner(req.user._id);
-      res.send(tasks);
-    } catch (e) {
-      res.status(500).send(e);
+      const tasks = req.user.role === 'admin'
+        ? await taskService.getAllTasks()
+        : await taskService.getTasksByOwner(req.user._id);
+
+      res.json(tasks);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   },
-
-  getTaskById : async (req, res) => {
-    try {
-      const task = await TaskService.getTaskByIdAndOwner(req.params.id, req.user._id);
-      if (!task) return res.status(404).send();
-      res.send(task);
-    } catch (e) {
-      res.status(500).send(e);
+  // get task by user or owner
+  getTasksById : async (req,res) =>{
+    try{
+      console.log('req.user:', req.user);
+      const userId = req.user._id.toString();
+      const task = await taskService.getTasksByowner(userId);
+      if (!task){
+        return res.status(404).json({error: 'Task not found'})
+      }
+      res.json(task);
+    }catch(err){
+      res.status(400).json({ error: err.message });
     }
   },
-
+  // Update task (only if owned by user)
   updateTask : async (req, res) => {
-    const updates = Object.keys(req.body);
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
-
-    if (!isValidOperation) {
-      return res.status(400).send({ error: 'Invalid updates!' });
-    }
-
     try {
-      const task = await TaskService.updateTaskByIdAndOwner(req.params.id, req.user._id, req.body);
-      if (!task) return res.status(404).send();
-      res.send(task);
-    } catch (e) {
-      res.status(400).send(e);
+      const updated = await taskService.updateTaskByIdAndOwner(
+        req.params.id,
+        req.user._id,
+        req.body
+      );
+      if (!updated) return res.status(404).json({ error: ' not found or unauthorized' });
+      res.json(updated);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
   },
 
+  // Delete task
   deleteTask : async (req, res) => {
     try {
-      const task = await TaskService.deleteTaskByIdAndOwner(req.params.id, req.user._id);
-      if (!task) return res.status(404).send();
-      res.send(task);
-    } catch (e) {
-      res.status(500).send(e);
+      const deleted = await taskService.deleteTask(req.params.id);
+      if (!deleted) return res.status(404).json({ error: 'Task not found' });
+      res.json({ message: 'Task deleted successfully' });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   }
-};
-module.exports =taskController;
+}
+
+module.exports = taskController;

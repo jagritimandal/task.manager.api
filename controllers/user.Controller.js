@@ -1,52 +1,51 @@
 const UserService = require('../services/user.Service');
+const bcrypt =require('bcrypt');
+const jwt =require('jsonwebtoken');
 
 const userController ={
-  usersinfo : async (req, res) => {
+  //register new user
+  registerUser : async (req,res) =>{
     try {
-      const users = await UserService.getAllUsers(); 
-
-      if (!users || users.length === 0) {
-        return res.status(404).json({ error: 'No users found' });
-      }
-
-      res.status(200).json(users);
+      const user = await UserService.createUser(req.body);
+      if(user){
+          const { _id, name, email, mobileNumber, role } = user;
+          return res.status(201).json({ message: 'User created successfully',
+            type :"success",
+            data:{ _id, name, email, mobileNumber, role }});
+        }
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   },
+  //login 
+  loginUser : async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserService.getUserByEmail(email);
+    if (!user) return res.status(401).json({ error: 'Invalid User' });
 
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ error: 'Invalid User' });
 
-  signup : async (req, res) => {
-    try {
-      const { users, token } = await UserService.createUser(req.body);
+    const token = jwt.sign(
+      { id: user._id, role: user.role }, 
+      process.env.JWT_SECRET, 
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
 
-      return res.status(201).json({
-        message: "New user added",
-        type: "success",
-        data: { users, token }
-      });
-    } catch (e) {
-      res.status(400).json({ error: e.message });
-    }
-  },
-
-
-  login : async (req, res) => {
-    try {
-      const { users, token } = await UserService.loginUser(req.body.email, req.body.password);
-      res.json({ users, token });
-    } catch (e) {
-      res.status(400).json(e);
-    }
-  },
-
-  logout : async (req, res) => {
-    try {
-      await UserService.logoutUser(req.user, req.token);
-      res.json();
-    } catch (e) {
-      res.status(500).json(e);
-    }
-  },
+    res.json({ message: 'Login successful', token });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+},
+// Get all users (admin only)
+getAllUsers : async (req, res) => {
+  try {
+    const users = await UserService.getAllUsers();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 }
 module.exports = userController;
