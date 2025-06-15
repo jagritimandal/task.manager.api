@@ -3,19 +3,16 @@
         "definition": {
             "openapi": "3.0.0",
             "info": {
-                "title": "Ecommerce APIs",
+                "title": "task-manager-api",
                 "version": "1.0.0",
-                "description": "REST APIs for Ecommerce Project."
+                "description": "API documentation for Task Management System."
             },
             "servers": [
                 {
                     "url": "http://localhost:3000",
                     "description": "local"
-                },
-                {
-                    "url":"https://0.0.0.0:3000",
-                    "description":"dev"
                 }
+                
             ]
         }
     }

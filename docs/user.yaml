@@ -1,119 +1,146 @@
 paths:
-  /user/login:
+  /task:
     post:
-      summary: Login user
-      tags:
-        - User
+      summary: Create a task
+      tags: [Task]
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                userName:
-                  type: string
-                password:
-                  type: string
-              required:
-                - userName
-                - password
+              $ref: '#/components/schemas/TaskInput'
       responses:
-        '200':
-          description: Login successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Login Successfull
-                  type:
-                    type: string
-                    example: success
-                  token:
-                    type: string
-                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '201':
+          description: Task created
         '400':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Incorrect password
-                  type:
-                    type: string
-                    example: failed
-                  userData:
-                    type: array
-                    example: []
-  /user/signup:
-    post:
-      summary: Login user
-      tags:
-        - User
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                userName:
-                  type: string
-                password:
-                  type: string
-                mobileNumber:
-                  type: string
-                role:
-                  type: string
-                  example: Admin  
-              required:
-                - userName
-                - password
-                - mobileNumber
-      responses:
-        '200':
-          description: Login successful
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Login Successfull
-                  type:
-                    type: string
-                    example: success
-                  token:
-                    type: string
-                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-                  data:
-                    type: object
-                    properties:
-                      userName:
-                        type: string
-                      password:
-                        type: string  
+          description: Invalid input
 
-        '400':
-          description: Invalid credentials
+    get:
+      summary: Get all tasks (admin) or user's tasks
+      tags: [Task]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: A list of tasks
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Incorrect password
-                  type:
-                    type: string
-                    example: failed
-                  userData:
-                    type: array
-                    example: []
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+
+  /task/{id}:
+    get:
+      summary: Get a task by ID (if owned by user)
+      tags: [Task]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task found
+        '404':
+          description: Task not found
+
+    put:
+      summary: Update a task by ID
+      tags: [Task]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskInput'
+      responses:
+        '200':
+          description: Task updated
+        '404':
+          description: Task not found
+
+    delete:
+      summary: Delete a task by ID
+      tags: [Task]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Task deleted
+        '404':
+          description: Task not found
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Task:
+      type: object
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [To Do, In Progress, Done]
+        priority:
+          type: string
+          enum: [Low, Medium, High]
+        dueDate:
+          type: string
+          format: date
+        owner:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    TaskInput:
+      type: object
+      required: [title, owner]
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [To Do, In Progress, Done]
+        priority:
+          type: string
+          enum: [Low, Medium, High]
+        dueDate:
+          type: string
+          format: date
+        owner:
+          type: string

@@ -4,6 +4,15 @@ const testRoute = require('./routes/test.Route');
 const taskRoute = require('./routes/task.Route');
 const connectDB = require('./config/db');
 
+//swagger api
+// swagger doc packages
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swagger_option = require('./config/swaggerOptions.json').options;
+swagger_option.apis = ['./docs/**/*.yaml'];
+const specs = swaggerJsdoc(swagger_option);
+
+
 require('dotenv').config();// Load .env at the top
 
 const app = express();
@@ -14,13 +23,14 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-
-// app.use('/task', authCheck, taskRoute);
-
 app.use('/user', userRoute);
 app.use('/test', testRoute);
 app.use('/task', taskRoute);
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(specs)
+);
 
 const PORT = process.env.PORT || PORT;
 app.listen(PORT, () => {
