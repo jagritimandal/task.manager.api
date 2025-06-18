@@ -1,0 +1,421 @@
+{
+	"info": {
+		"_postman_id": "00904197-11c6-44ca-b918-39ba89f7a6d5",
+		"name": "task-manager-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44706814",
+		"_collection_link": "https://jagritimandal-7518278.postman.co/workspace/Jagriti-Mandal's-Workspace~82fc831c-22de-4cdf-825a-710d396ae668/collection/44706814-00904197-11c6-44ca-b918-39ba89f7a6d5?action=share&source=collection_link&creator=44706814"
+	},
+	"item": [
+		{
+			"name": "task",
+			"item": [
+				{
+					"name": "http://localhost:3000/task/createTask",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3MTg1MSwiZXhwIjoxNzUwNzc2NjUxfQ.31wASMC8RTT3yojTXxONE76T-InRD0d4npFrB7tGxjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"create Task2\",\r\n    \"description\":\"it is a task description \",\r\n    \"status\":\"To Do\",\r\n    \"priority\":\"Medium\",\r\n    \"dueDate\":\"2025-07-17\",\r\n    \"owner\":\"68517e61e905ad8b90e7848d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/task/createTask",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"task",
+								"createTask"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/task/getTasks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3MjA0OCwiZXhwIjoxNzUwNzc2ODQ4fQ.rsPEsI6R5_2m8aSjXxX45_j6SNGxJyxjdIqsgA6w_Dk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/task/getTasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"task",
+								"getTasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/task/getTaskBy/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3MjQ1MSwiZXhwIjoxNzUwNzc3MjUxfQ.jid3DFw3ztAA2ppf9HsuFThjSuUYD39hoxcJ80_t8Hg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/task/getTaskBy/68517e61e905ad8b90e7848d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"task",
+								"getTaskBy",
+								"68517e61e905ad8b90e7848d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/task/updateTask/68518102e905ad8b90e78497",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3MzcxMiwiZXhwIjoxNzUwNzc4NTEyfQ.DoLFJmiOJckYd1GiIjKXH46L7n1mL4xLDBgtr4L4YYc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Updated Task Title\",\r\n  \"status\": \"In Progress\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/task/updateTask/68518102e905ad8b90e78497",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"task",
+								"updateTask",
+								"68518102e905ad8b90e78497"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/task/deleteTask/68518118e905ad8b90e7849a",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3NDY2NCwiZXhwIjoxNzUwNzc5NDY0fQ.YDikG2j1XaRLpr-AUM5OrgW7wrBVPRuTYt3nKBndgMU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/task/deleteTask/68518118e905ad8b90e7849a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"task",
+								"deleteTask",
+								"68518118e905ad8b90e7849a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "http://localhost:3000/user/registerUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"jagriti\",\r\n    \"email\":\"jagriti@gmail.com\",\r\n    \"password\":\"123456\",\r\n    \"mobileNumber\":\"4444554444\",\r\n    \"role\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/registerUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"registerUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/user/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:3000/user/getAllUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTE3ZTYxZTkwNWFkOGI5MGU3ODQ4ZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDE3MTc1MywiZXhwIjoxNzUwNzc2NTUzfQ.4uw9YG4BK8HE7ssuBWBttuLpiBy9zcK5BSsnwV6hc0M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/getAllUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"getAllUsers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test",
+			"item": [
+				{
+					"name": "http://localhost:3000/test",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/test",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"jagriti@gmail.com\",\r\n  \"password\": \"123456\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

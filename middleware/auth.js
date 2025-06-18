@@ -2,26 +2,32 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
 const auth = async (req, res, next) => {
+    console.log("🔐 Entered auth middleware");
 
-    //console.log(`req.headers.authorization : ${req.headers.authorization}`); //Bearer dfnjsdfhsdvn
-    console.log("authorized.");
-    const token = req.headers.authorization?.split(" ")[1]; // ["Bearer", "dfnjsdfhsdvn"]
+    const authHeader = req.headers.authorization;
+    console.log("🧾 Authorization Header:", authHeader);
 
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: "Access Denied. No token provided." });
     }
 
+    const token = authHeader.split(" ")[1];
+    console.log("🪙 Token extracted:", token);
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded._id);
-        req.user = await decoded;
+        console.log("✅ Decoded token:", decoded);
+
+        const user = await User.findById(decoded.id);
         if (!user) {
-            throw new Error();
+            console.log("❌ User not found for ID:", decoded.id);
+            return res.status(401).json({ message: "Invalid token: user not found." });
         }
+
         req.user = user;
         next();
     } catch (err) {
-        console.error('Token verification error:', err.message); // For logging
+        console.error("❗ JWT verification error:", err.message);
         res.status(403).json({ message: "Invalid or expired token" });
     }
 };
