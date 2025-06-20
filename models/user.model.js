@@ -1,6 +1,5 @@
  const mongoose = require('mongoose');
- const validator =require('validator');
-
+// const validate =require('validator')
  const userSchema = new mongoose.Schema({
    name: {
      type: String,
@@ -12,23 +11,23 @@
      required: true,
      unique: true,
      trim: true,
-     lowercase: true,
-     validate(value) {// for email validation
-       if (!validator.isEmail(value)) {
-         throw new Error('Invalid email address');
-       }
-     }
+    //  lowercase: true,
+    //  validate(value) {// for email validation
+    //    if (!validator.isEmail(value)) {
+    //      throw new Error('Invalid email address');
+    //    }
+    //  }
    },
    password: {
      type: String,
      required: true,
      trim: true,
-     minlength: 6,
-     validate(value) { //for password validation
-       if (value.toLowerCase().includes('password')) {
-         throw new Error('Password cannot contain "password"');
-       }
-     }
+    //  minlength: 6,
+    //  validate(value) { //for password validation
+    //    if (value.toLowerCase().includes('password')) {
+    //      throw new Error('Password cannot contain "password"');
+    //    }
+    //  }
    },
    mobileNumber:{
     type: String,

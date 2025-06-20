@@ -1,0 +1,64 @@
+Task input:
+Accepted: 
+Body:form- data
+
+| Key         | Type | Value                       |
+| ----------- | ---- | --------------------------- |
+| title       | Text | create Task1                |
+| description | Text | it is a task description    |
+| status      | Text | To Do                       |
+| priority    | Text | Low                         |
+| owner       | Text | 68557821beb0f3dcdbffb22d    |
+| attachments | File | (choose `task.jpg` from PC) |
+body: raw
+{
+    "title":"create Task1",
+    "description":"it is a task description ",
+    "status":"To Do",
+    "priority":"Low",
+    "owner":"68557821beb0f3dcdbffb22d"
+}
+
+Not Accepted :
+body:raw
+{
+    "title":"create Task1",
+    "description":"it is a task description ",
+    "status":"To Do",
+    "priority":"Low",
+    "owner":"68557821beb0f3dcdbffb22d",
+    "attachments":[
+        {
+            "fileName": "task.jpg",
+            "filePath": "uploads/task.jpg",
+            "mimeType": "application/pdf",
+            "size": 550
+        }
+    ]
+}
+
+Task update:
+{
+  "title": "Updated Task Title",
+  "status": "In Progress"
+}
+
+User Registration:
+{
+    "name":"jagriti ",
+    "email":"jagriti@gmail.com",
+    "password":"123456",
+    "mobileNumber":"4444554444",
+    "role":"admin"
+}
+{
+    "name":"jui",
+    "email":"jui@gmail.com",
+    "password":"123456",
+    "mobileNumber":"1234567654"
+}
+Login:
+{
+  "email": "jui@gmail.com",
+  "password": "123456"
+}

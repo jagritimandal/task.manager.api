@@ -1,11 +1,25 @@
 const taskService = require('../services/task.service');
-
+const taskValidation =require('../validation/task.validate')
 const taskController = {
   // Create a task
   createTask : async (req, res) => {
+    // Validate input
+    const { error, value } = taskValidation.TaskSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+      }
     try {
+      // Prepare attachment data from uploaded files
+      const files = req.files || [];
+      const attachments = files.map(file => ({
+        fileName: file.originalname,
+        filePath: file.path,
+        mimeType: file.mimetype,
+        size: file.size,
+         }));
       const task = await taskService.createTask({
-        ...req.body,
+        ...value,
+        attachments,
         createdBy: req.user._id,
       });
       res.status(201).json(task);

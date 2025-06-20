@@ -1,5 +1,15 @@
  const mongoose = require('mongoose');
 const User =require('../models/user.model');
+
+
+const attachmentSchema = new mongoose.Schema({
+  fileName: String,
+  filePath: String,
+  mimeType: String,
+  size: Number,
+  uploadedAt: { type: Date, default: Date.now }
+});
+
  const taskSchema = new mongoose.Schema({
    title: {
      type: String,
@@ -26,7 +36,8 @@ const User =require('../models/user.model');
      type: mongoose.Schema.Types.ObjectId,
      required: true,
      ref: 'User'
- },  
+    },
+  attachments: [attachmentSchema],  
 },{ timestamps: true });
 
  const Task = mongoose.model('Task', taskSchema);

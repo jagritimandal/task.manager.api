@@ -4,7 +4,6 @@ const testRoute = require('./routes/test.Route');
 const taskRoute = require('./routes/task.Route');
 const connectDB = require('./config/db');
 
-//swagger api
 // swagger doc packages
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
@@ -37,3 +36,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}.....`);
   console.log(`Swagger docs at http://localhost:${PORT}/api-docs`);
 });
+module.exports = app;
