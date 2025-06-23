@@ -22,7 +22,8 @@ Built with **Node.js**, **Express**, and **MongoDB**, it includes **authenticati
 - **JWT** for auth
 - **bcrypt** for password hashing
 - **dotenv** for environment configuration
-- **Postman** / **Insomnia** for API testing
+- **Postman**  for API testing
+- **Swagger API** for API documentation
 
 ## 📁 Project Structure
 
