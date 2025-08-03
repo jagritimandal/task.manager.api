@@ -56,19 +56,19 @@ task-manager-api/
 ### 🧑‍💻 Auth
 | Method | Endpoint        | Description          |
 |--------|-----------------|----------------------|
-| POST   | /api/register   | Register new user    |
-| POST   | /api/login      | User login           |
+| POST   | /user/register   | Register new user    |
+| POST   | /user/login      | User login           |
 ## ⚙️ Admin Only
-| GET    | /api/users      | Get all users        |
-| DELETE | /api/users/:id  | Delete a user (admin)|
+| GET    | /user/users      | Get all users        |
+| DELETE | /user/users/:id  | Delete a user (admin)|
 
 ### 📋 Tasks
 | Method | Endpoint        | Description                |
 |--------|-----------------|----------------------------|
-| GET    | /api/tasks      | Get all tasks (auth)       |
-| POST   | /api/tasks      | Create a new task          |
-| PUT    | /api/tasks/:id  | Update task by ID          |
-| DELETE | /api/tasks/:id  | Delete task by ID          |
+| GET    | /task/tasks      | Get all tasks (auth)       |
+| POST   | /task/tasks      | Create a new task          |
+| PUT    | /task/tasks/:id  | Update task by ID          |
+| DELETE | /task/tasks/:id  | Delete task by ID          |
 
 
 ## 🌍 Deployment
