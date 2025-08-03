@@ -8,8 +8,13 @@ module.exports = [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "commonjs",
-      globals: globals.node,
+      globals: {
+        ...globals.node,
+        ...globals.mocha, // ✅ Add Mocha globals like describe, it, before, after
+      },
     },
-    ...js.configs.recommended, // 👈 Use spread to apply recommended rules directly
+    rules: {
+      ...js.configs.recommended.rules, // ✅ Apply recommended rules correctly here
+    },
   },
 ];

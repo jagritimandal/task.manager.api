@@ -1,7 +1,11 @@
+// Import express
 const express = require('express');
+
+// Import routes
 const userRoute = require('./routes/user.Route');
 const testRoute = require('./routes/test.Route');
 const taskRoute = require('./routes/task.Route');
+// Import database connection
 const connectDB = require('./config/db');
 
 // swagger doc packages
@@ -11,10 +15,11 @@ const swagger_option = require('./config/swaggerOptions.json').options;
 swagger_option.apis = ['./docs/**/*.yaml'];
 const specs = swaggerJsdoc(swagger_option);
 
-
-require('dotenv').config();// Load .env at the top
+// Load .env at the top
+require('dotenv').config();
 
 const app = express();
+
 // Connect to MongoDB and start server
 connectDB();
 
@@ -22,6 +27,7 @@ connectDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// routes
 app.use('/user', userRoute);
 app.use('/test', testRoute);
 app.use('/task', taskRoute);
@@ -30,7 +36,7 @@ app.use(
     swaggerUi.serve,
     swaggerUi.setup(specs)
 );
-
+// Start server
 const PORT = process.env.PORT || PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}.....`);

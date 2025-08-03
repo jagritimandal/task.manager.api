@@ -28,12 +28,12 @@ const UserService = {
       throw new Error(err.message);
     }
   },
-getUserByEmail : async (email) => {
-  return User.findOne({ email });
-},
-getAllUsers : async () => {
-  return User.find();
-},
+  getUserByEmail : async (email) => {
+    return User.findOne({ email });
+  },
+  getAllUsers : async () => {
+    return User.find();
+  },
 };
 
 module.exports = UserService;

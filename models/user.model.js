@@ -39,7 +39,7 @@
     enum :['admin','user'],
     default:'user',
    },
-    createdAt: {
+  createdAt: {
         type: Date,
         default: Date.now
     }
